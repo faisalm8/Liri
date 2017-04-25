@@ -33,7 +33,9 @@ switch (operator) {
 		break;
 }
 
+
 // functions for 'my-tweets', 'spotify-this-song', 'movie-this', and 'do-what-it-says'
+
 
 // 'my-tweets': 20 most recent tweets and date/time
 function twitter() {
@@ -64,7 +66,10 @@ function twitter() {
 	});
 }
 
-// spotify-this-song: return song information
+
+// spotify-this-song: 
+
+// return song information
 function spotify() {
 	var spotify = require('spotify');
 
@@ -100,6 +105,46 @@ function songInfo(songObject) {
 	console.log('Preview: ' + songObject.preview_url);
 	console.log('----------------------------------------');
 }
+
+
+// movie-this:
+
+// return movie information
+function movie() {
+	switch ( searchItem ) {
+		case '':
+			request("http://www.omdbapi.com/?t=mr+nobody&y=&plot=short&tomatoes=true&r=json", function(error, response, body) {
+				if (!error && response.statusCode == 200) {
+					var movieObject = JSON.parse(body);
+					movieInfo(movieObject);
+				}
+			});
+			break;
+		default:
+			request("http://www.omdbapi.com/?t=" + searchItem + "&y=&plot=short&tomatoes=true&r=json", function (error, response, body) {
+				if (!error && response.statusCode == 200) {
+					var movieObject = JSON.parse(body);
+					movieInfo(movieObject);
+				}
+			});
+	}
+}
+
+// display movie information
+function movieInfo(movieObject) {
+	console.log('----------------------------------------');
+	console.log('Title: ' + movieObject.Title);
+	console.log('Year: ' + movieObject.Year);
+	console.log('IMBD Rating: ' + movieObject.imdbRating);
+	console.log('Country: ' + movieObject.Country);
+	console.log('Language: ' + movieObject.Language);
+	console.log('Plot: ' + movieObject.Plot);
+	console.log('Actors: ' + movieObject.Actors);
+	console.log('Rotten Tomatoes Rating: ' + movieObject.tomatoRating);
+	console.log('Rotten Tomatoes Link: ' + movieObject.tomatoURL);
+	console.log('----------------------------------------');
+}
+
 
 
 
