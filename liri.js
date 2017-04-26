@@ -145,6 +145,31 @@ function movieInfo(movieObject) {
 	console.log('----------------------------------------');
 }
 
+// do-what-it-says:
+function random() {
+	fs.readFile('random.txt', 'utf8', function (err, data) {
+		if (err) {
+			return console.log(err);
+		}
+
+		dataArray = data.split(',');
+		operator = dataArray[0];
+		searchItem = dataArray[1];
+
+		switch (operator) {
+			case 'my-tweets':
+				twitter();
+				break;
+			case 'spotify-this-song':
+				spotify();
+				break;
+			case 'movie-this':
+				movie();
+					break;
+		}
+	});
+}
+
 
 
 
